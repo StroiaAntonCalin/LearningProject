@@ -15,8 +15,8 @@ export const Card: React.FC<CardProps> = ({ product, clickable = true }) => {
     : 0;
   const stars = Math.floor(averageRating);
   const content = (
-    <div className="bg-white rounded-lg flex flex-col h-full w-full border border-black overflow-hidden relative">
-      <div className="absolute top-2 right-2 flex items-center gap-1 px-2 py-1 rounded-md z-10">
+    <div className="bg-white rounded-lg flex flex-col border border-black overflow-hidden relative">
+      <div className="absolute top-2 right-2 flex z-10">
         {Array.from({ length: stars }).map((_, i) => (
         <FaStar key={i} className="text-yellow-500" />
         ))}

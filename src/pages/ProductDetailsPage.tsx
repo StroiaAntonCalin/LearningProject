@@ -93,7 +93,7 @@ return (
   <div className="p-4">
     <div className="grid gap-6 items-start max-w-[1100px] mx-auto md:grid-cols-2">
         <div>
-          <h2 className="mb-10 text-center text-2xl font-bold">
+          <h2 className="mb-10 text-center text-3xl font-bold">
             Product
           </h2>
           <Card product={product} clickable={false} />
@@ -142,7 +142,7 @@ return (
           </form>
         </div>
         <div>
-          <h2 className="mb-10 text-center text-2xl font-bold">
+          <h2 className="mb-10 text-center text-3xl font-bold">
             Reviews
           </h2>
           {product.reviews.length ? (
