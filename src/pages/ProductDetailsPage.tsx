@@ -44,7 +44,7 @@ export const ProductDetailsPage: React.FC = () => {
     setReviewError(null);
 
     if (!reviewText.trim()) {
-      setReviewError("Textul review-ului este obligatoriu.");
+      setReviewError("Text is mandatory");
       return;
     }
 
@@ -54,7 +54,7 @@ export const ProductDetailsPage: React.FC = () => {
       setReviewText("");
       setReviewRating(5);
     } catch (err: any) {
-      setReviewError(err?.message || "Eroare la salvarea review-ului.");
+      setReviewError(err?.message);
     } finally {
       setReviewLoading(false);
     }
