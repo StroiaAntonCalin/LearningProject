@@ -155,7 +155,7 @@ return (
                   >
                 <div className="flex items-center gap-1">
                   {[...Array(review.rating)].map((_, i) => (
-                   <FaStar key={i} className="text-yellow-500" />
+                   <FaStar key={i} />
                     ))}
                 </div>
                     <p className="mt-1">{review.text}</p>
