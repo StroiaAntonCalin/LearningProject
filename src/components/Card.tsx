@@ -10,21 +10,19 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ product, clickable = true }) => {
   const averageRating =
-  product.reviews && product.reviews.length > 0
-    ? product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length
-    : 0;
+    product.reviews && product.reviews.length > 0
+      ? product.reviews.reduce((sum, r) => sum + r.rating, 0) /
+        product.reviews.length
+      : 0;
   const stars = Math.floor(averageRating);
   const content = (
-    <div className="bg-white rounded-lg flex flex-col border border-black overflow-hidden relative">
+    <div className="bg-white rounded-lg flex flex-col shadow border border-gray-200 overflow-hidden relative h-full">
       <div className="absolute top-2 right-2 flex z-10">
         {Array.from({ length: stars }).map((_, i) => (
-        <FaStar key={i} className="text-yellow-500" />
+          <FaStar key={i} className="text-yellow-500" />
         ))}
       </div>
-      <img
-        src={product.image}
-        alt={product.name}
-      />
+      <img src={product.image} alt={product.name} />
       <div className="p-4 flex flex-col gap-2">
         <h2 className="text-lg font-semibold">{product.name}</h2>
         <p className="text-sm text-gray-700">{product.description}</p>
@@ -34,10 +32,7 @@ export const Card: React.FC<CardProps> = ({ product, clickable = true }) => {
 
   if (clickable) {
     return (
-      <Link
-        to={`/products/${product.id}`}
-        className="no-underline"
-      >
+      <Link to={`/products/${product.id}`} className="no-underline">
         {content}
       </Link>
     );

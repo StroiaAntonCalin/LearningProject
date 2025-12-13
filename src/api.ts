@@ -21,11 +21,11 @@ export async function fetchProduct(productId: string): Promise<Product | null> {
 export async function addReview(
   productId: string,
   text: string,
-  rating: number
+  rating: number,
 ): Promise<Product> {
   const res = await apiClient.post<{ product: Product }>(
     `/products/${productId}/reviews`,
-    { text, rating }
+    { text, rating },
   );
 
   return res.data.product;

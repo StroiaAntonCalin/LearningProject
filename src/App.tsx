@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { ProductsGridPage } from "./pages/ProductsGridPage";
 import { ProductDetailsPage } from "./pages/ProductDetailsPage";
 

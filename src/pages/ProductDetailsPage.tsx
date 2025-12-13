@@ -3,8 +3,9 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { fetchProduct, addReview } from "../api";
 import type { Product } from "../types";
-import { FaStar } from "react-icons/fa";
 import { Card } from "../components/Card";
+import { ReviewsList } from "../components/ReviewsList";
+import { Header } from "../components/Header";
 
 export const ProductDetailsPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -66,60 +67,46 @@ export const ProductDetailsPage: React.FC = () => {
   };
 
   if (productLoading) {
-    return (
-      <div className="p-4 text-center text-gray-600">
-        Loading...
-      </div>
-    );
+    return <div className="p-4 text-center text-gray-600">Loading...</div>;
   }
 
   if (productError) {
-    return (
-      <div className="p-4 text-center text-red-600">
-        Error
-      </div>
-    );
+    return <div className="p-4 text-center text-red-600">Error</div>;
   }
 
   if (!product) {
     return (
-      <div className="p-4 text-center text-gray-600">
-        Product not found.
-      </div>
+      <div className="p-4 text-center text-gray-600">Product not found.</div>
     );
   }
 
-return (
-  <div className="p-4">
-    <div className="grid gap-6 items-start max-w-[1100px] mx-auto md:grid-cols-2">
+  return (
+    <div className="p-4">
+      <Header title="Product" title2="Reviews" />
+      <div className="grid gap-6 items-start max-w-[1100px] mx-auto md:grid-cols-2">
         <div>
-          <h2 className="mb-10 text-center text-3xl font-bold">
-            Product
-          </h2>
           <Card product={product} clickable={false} />
           <form onSubmit={handleSubmitReview} className="mt-6">
             <h3 className="text-lg font-semibold mb-4">Add review:</h3>
-          <div className="mb-4 relative">
-            <label>
-             <textarea
-               value={reviewText}
-               onChange={handleTextChange}
-               rows={10}
-               maxLength={500}
-               className="w-full resize-none rounded-lg border border-gray-300 p-2"
-              />
-            </label>
-            <span className="absolute -bottom-5 right-0 text-sm text-gray-500">
-             {reviewText.length} / 500
-           </span>
-            {reviewError && (
-              <p className="mt-2 text-red-600">{reviewError}</p>
-            )}
-          </div>
-            <div className="mb-4 flex items-center gap-4">
-              <label className="font-medium">
-                Rating (1-5):
+            <div className="mb-4 relative">
+              <label>
+                <textarea
+                  value={reviewText}
+                  onChange={handleTextChange}
+                  rows={10}
+                  maxLength={500}
+                  className="w-full resize-none rounded-lg border border-gray-300 p-2"
+                />
               </label>
+              <span className="absolute -bottom-5 right-0 text-sm text-gray-500">
+                {reviewText.length} / 500
+              </span>
+              {reviewError && (
+                <p className="mt-2 text-red-600">{reviewError}</p>
+              )}
+            </div>
+            <div className="mb-4 flex items-center gap-4">
+              <label className="font-medium">Rating (1-5):</label>
               <select
                 value={reviewRating}
                 onChange={(e) => setReviewRating(Number(e.target.value))}
@@ -142,34 +129,10 @@ return (
           </form>
         </div>
         <div>
-          <h2 className="mb-10 text-center text-3xl font-bold">
-            Reviews
-          </h2>
           {product.reviews.length ? (
-            <section>
-              <ul className="list-none space-y-4">
-                {product.reviews.map((review) => (
-                  <li
-                    key={review.id}
-                    className="bg-white p-4 rounded-md shadow border border-gray-200"
-                  >
-                <div className="flex items-center gap-1">
-                  {[...Array(review.rating)].map((_, i) => (
-                   <FaStar key={i} className="text-yellow-500" />
-                    ))}
-                </div>
-                    <p className="mt-1">{review.text}</p>
-                    <small className="text-gray-500">
-                      {new Date(review.createdAt).toLocaleString()}
-                    </small>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            <ReviewsList reviews={product.reviews} />
           ) : (
-            <p className="text-gray-600">
-              No reviews.
-            </p>
+            <p className="text-gray-600">No reviews.</p>
           )}
         </div>
       </div>
