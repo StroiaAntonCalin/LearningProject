@@ -22,13 +22,13 @@ export const ProductsGridPage: React.FC = () => {
   }
 
   return (
-    <div className="p-4">
-      <Header title="Products" />
+    <>
+      <Header text="Products" />
       <div className="grid grid-cols-4 gap-8 mx-auto w-full">
         {products?.map((product) => (
           <Card key={product.id} product={product} />
         ))}
       </div>
-    </div>
+    </>
   );
 };

@@ -81,9 +81,9 @@ export const ProductDetailsPage: React.FC = () => {
   }
 
   return (
-    <div className="p-4">
-      <Header title="Product" title2="Reviews" />
-      <div className="grid gap-6 items-start max-w-[1100px] mx-auto md:grid-cols-2">
+    <>
+      <Header text="Product" text2="Reviews" />
+      <div className="grid gap-6 items-start max-w-[1100px] mx-auto grid-cols-2">
         <div>
           <Card product={product} clickable={false} />
           <form onSubmit={handleSubmitReview} className="mt-6">
@@ -122,7 +122,7 @@ export const ProductDetailsPage: React.FC = () => {
             <button
               type="submit"
               disabled={reviewLoading}
-              className="rounded-lg bg-blue-600 px-4 py-2 text-white font-medium hover:bg-blue-700 disabled:opacity-50"
+              className="rounded-lg bg-blue-500 px-4 py-2 text-white font-medium hover:bg-blue-700 disabled:opacity-50"
             >
               {reviewLoading ? "Loading..." : "Send Review"}
             </button>
@@ -136,6 +136,6 @@ export const ProductDetailsPage: React.FC = () => {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
