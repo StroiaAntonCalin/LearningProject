@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+:root {
+  --site-header-height: 64px; /* matches py-4 + text size — adjust if needed */
+  --site-header-margin-bottom: 16px;
+}

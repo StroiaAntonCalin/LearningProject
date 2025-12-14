@@ -84,7 +84,7 @@ export const ProductDetailsPage: React.FC = () => {
     <>
       <Header text="Product" text2="Reviews" />
       <div className="grid gap-6 items-start max-w-[1100px] mx-auto grid-cols-2">
-        <div>
+        <div className="pt-25">
           <Card product={product} clickable={false} />
           <form onSubmit={handleSubmitReview} className="mt-6">
             <h3 className="text-lg font-semibold mb-4">Add review:</h3>
@@ -128,7 +128,7 @@ export const ProductDetailsPage: React.FC = () => {
             </button>
           </form>
         </div>
-        <div>
+        <div className="pt-25">
           {product.reviews.length ? (
             <ReviewsList reviews={product.reviews} />
           ) : (
