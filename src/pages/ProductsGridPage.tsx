@@ -22,12 +22,10 @@ export const ProductsGridPage: React.FC = () => {
 
   useEffect(() => {
     if (!showFilters) return;
-
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as Node;
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(target) &&
+        !dropdownRef.current?.contains(target) &&
         !filterButtonRef.current?.contains(target)
       ) {
         setShowFilters(false);

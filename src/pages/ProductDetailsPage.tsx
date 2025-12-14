@@ -6,22 +6,18 @@ import type { Product } from "../types";
 import { Card } from "../components/Card";
 import { ReviewsList } from "../components/ReviewsList";
 import { Header } from "../components/Header";
+import SideDrawer from "../components/SideDrawer";
 
 export const ProductDetailsPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
 
   const [reviewText, setReviewText] = useState("");
   const [reviewRating, setReviewRating] = useState<number>(5);
-  const [reviewLoading, setReviewLoading] = useState(false);
-  const [reviewError, setReviewError] = useState<string | null>(null);
-
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const draftKey = `review`;
   const queryClient = useQueryClient();
 
-  const {
-    data: product,
-    isLoading: productLoading,
-    error: productError,
-  } = useQuery<Product | null>({
+  const { data: product, error: productError } = useQuery<Product | null>({
     queryKey: ["product", productId],
     queryFn: () => fetchProduct(productId as string),
     enabled: !!productId,
@@ -35,40 +31,42 @@ export const ProductDetailsPage: React.FC = () => {
     },
   });
 
-  const handleAddReview = async (text: string, rating: number) => {
+  const handleAddReview = (text: string, rating: number) => {
     if (!productId) return;
-    await addReviewMutation({ text, rating });
+    addReviewMutation({ text, rating });
   };
 
-  const handleSubmitReview = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setReviewError(null);
+  const handleTextChange = (t: string) => {
+    setReviewText(t);
+    localStorage.setItem(
+      draftKey,
+      JSON.stringify({ text: t, rating: reviewRating }),
+    );
+  };
 
-    if (!reviewText.trim()) {
-      setReviewError("Text is mandatory");
-      return;
-    }
-
-    try {
-      setReviewLoading(true);
-      await handleAddReview(reviewText, reviewRating);
+  const handleRatingChange = (r: number) => {
+    setReviewRating(r);
+    localStorage.setItem(
+      draftKey,
+      JSON.stringify({ text: reviewText, rating: r }),
+    );
+  };
+  const closeDrawer = (persistDraft = false) => {
+    setDrawerOpen(false);
+    if (!persistDraft) {
+      localStorage.removeItem(draftKey);
       setReviewText("");
       setReviewRating(5);
-    } catch (err: any) {
-      setReviewError(err?.message);
-    } finally {
-      setReviewLoading(false);
     }
   };
 
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewText(e.target.value);
-    if (reviewError) setReviewError(null);
+  const confirmSend = () => {
+    handleAddReview(reviewText, reviewRating);
+    localStorage.removeItem(draftKey);
+    setReviewText("");
+    setReviewRating(5);
+    setDrawerOpen(false);
   };
-
-  if (productLoading) {
-    return <div className="p-4 text-center text-gray-600">Loading...</div>;
-  }
 
   if (productError) {
     return <div className="p-4 text-center text-red-600">Error</div>;
@@ -86,47 +84,22 @@ export const ProductDetailsPage: React.FC = () => {
       <div className="grid gap-6 items-start max-w-[1100px] mx-auto grid-cols-2">
         <div className="pt-25">
           <Card product={product} clickable={false} />
-          <form onSubmit={handleSubmitReview} className="mt-6">
-            <h3 className="text-lg font-semibold mb-4">Add review:</h3>
-            <div className="mb-4 relative">
-              <label>
-                <textarea
-                  value={reviewText}
-                  onChange={handleTextChange}
-                  rows={10}
-                  maxLength={500}
-                  className="w-full resize-none rounded-lg border border-gray-300 p-2"
-                />
-              </label>
-              <span className="absolute -bottom-5 right-0 text-sm text-gray-500">
-                {reviewText.length} / 500
-              </span>
-              {reviewError && (
-                <p className="mt-2 text-red-600">{reviewError}</p>
-              )}
-            </div>
-            <div className="mb-4 flex items-center gap-4">
-              <label className="font-medium">Rating (1-5):</label>
-              <select
-                value={reviewRating}
-                onChange={(e) => setReviewRating(Number(e.target.value))}
-                className="rounded-lg border border-gray-300 p-2"
+          <div className="mt-6">
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={() => {
+                  localStorage.setItem(
+                    draftKey,
+                    JSON.stringify({ text: reviewText, rating: reviewRating }),
+                  );
+                  setDrawerOpen(true);
+                }}
+                className="rounded-lg bg-blue-500 px-4 py-2 text-white font-medium hover:bg-blue-700 disabled:opacity-50"
               >
-                {[1, 2, 3, 4, 5].map((r) => (
-                  <option key={r} value={r}>
-                    {r}
-                  </option>
-                ))}
-              </select>
+                Add Review
+              </button>
             </div>
-            <button
-              type="submit"
-              disabled={reviewLoading}
-              className="rounded-lg bg-blue-500 px-4 py-2 text-white font-medium hover:bg-blue-700 disabled:opacity-50"
-            >
-              {reviewLoading ? "Loading..." : "Send Review"}
-            </button>
-          </form>
+          </div>
         </div>
         <div className="pt-25">
           {product.reviews.length ? (
@@ -136,6 +109,15 @@ export const ProductDetailsPage: React.FC = () => {
           )}
         </div>
       </div>
+      <SideDrawer
+        open={drawerOpen}
+        onClose={closeDrawer}
+        onSend={confirmSend}
+        text={reviewText}
+        rating={reviewRating}
+        onTextChange={(t) => handleTextChange(t)}
+        onRatingChange={(r) => handleRatingChange(r)}
+      />
     </>
   );
 };
