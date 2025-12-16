@@ -25,11 +25,11 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <span className="text-2xl font-medium">Back</span>
         </button>
-        <div className="grid gap-6 max-w-[1100px] mx-auto grid-cols-2 px-20">
-          <div className="text-center py-4">
+        <div className="grid gap-6 max-w-[1100px] mx-auto grid-cols-2 w-full h-full items-center">
+          <div className="flex justify-center">
             <h1 className="hidden sm:block text-3xl font-bold">{text}</h1>
           </div>
-          <div className="text-center py-4">
+          <div className="flex justify-center">
             <h1 className="hidden sm:block text-3xl font-bold">{text2}</h1>
           </div>
         </div>

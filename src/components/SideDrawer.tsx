@@ -108,7 +108,7 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
 
           <div className="mt-4 flex justify-end gap-2">
             <button
-              className="rounded-lg bg-gray-200 px-4 py-2 text-sm"
+              className="rounded-lg bg-gray-200 px-4 py-2 text-m cursor-pointer"
               onClick={() => {
                 setValidationError("");
                 onClose(false);
@@ -117,7 +117,7 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
               Cancel
             </button>
             <button
-              className="rounded-lg bg-blue-500 px-4 py-2 text-white text-sm"
+              className="rounded-lg bg-blue-500 px-4 py-2 text-white text-m cursor-pointer"
               onClick={() => {
                 if (text === "") {
                   setValidationError("Text is mandatory!");

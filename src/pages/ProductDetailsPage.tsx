@@ -94,7 +94,7 @@ export const ProductDetailsPage: React.FC = () => {
                   );
                   setDrawerOpen(true);
                 }}
-                className="rounded-lg bg-blue-500 px-4 py-2 text-white font-medium hover:bg-blue-700 disabled:opacity-50"
+                className="rounded-lg bg-blue-500 px-4 py-2 text-white font-medium hover:bg-blue-700 cursor-pointer"
               >
                 Add Review
               </button>
