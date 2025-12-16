@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 type SideDrawerProps = {
   open: boolean;
@@ -20,16 +20,21 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
   onRatingChange,
 }) => {
   const drawerRef = useRef<HTMLElement | null>(null);
+  const [validationError, setValidationError] = useState<string>("");
 
   useEffect(() => {
     if (!open) return;
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as Node | null;
       if (!drawerRef.current?.contains(target)) {
+        setValidationError("");
         onClose(true);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [open, onClose]);
 
   if (!open) return null;
@@ -45,12 +50,6 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold">Add Review</h3>
-            <button
-              className="text-sm text-gray-600"
-              onClick={() => onClose(false)}
-            >
-              Cancel
-            </button>
           </div>
 
           <div className="flex-1 overflow-auto">
@@ -58,7 +57,23 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
               <label>
                 <textarea
                   value={text}
-                  onChange={(e) => onTextChange(e.target.value)}
+                  onChange={(e) => {
+                    onTextChange(e.target.value);
+                    if (validationError) {
+                      setValidationError("");
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (text.length > 500) {
+                      e.preventDefault();
+                      setValidationError(
+                        "You reached the maximum of 500 characters.",
+                      );
+                    }
+                  }}
+                  onBlur={() => {
+                    setValidationError("");
+                  }}
                   rows={10}
                   maxLength={500}
                   className="w-full resize-none rounded-lg border border-gray-300 p-2"
@@ -67,6 +82,9 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
               <span className="absolute -bottom-5 right-0 text-sm text-gray-500">
                 {text.length} / 500
               </span>
+              {validationError && (
+                <p className="text-sm text-red-600 mt-1">{validationError}</p>
+              )}
             </div>
 
             <div className="mb-4 flex items-center gap-4">
@@ -88,13 +106,22 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
           <div className="mt-4 flex justify-end gap-2">
             <button
               className="rounded-lg bg-gray-200 px-4 py-2 text-sm"
-              onClick={() => onClose(false)}
+              onClick={() => {
+                setValidationError("");
+                onClose(false);
+              }}
             >
               Cancel
             </button>
             <button
               className="rounded-lg bg-blue-500 px-4 py-2 text-white text-sm"
-              onClick={onSend}
+              onClick={() => {
+                if (text === "") {
+                  setValidationError("Text is mandatory!");
+                  return;
+                }
+                onSend();
+              }}
             >
               Send
             </button>
