@@ -105,7 +105,7 @@ export const ProductsGridPage: React.FC = () => {
         </div>
       )}
       <div className="pt-25 px-6">
-        <div className="grid grid-cols-4 gap-8 mx-auto w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-8 mx-auto w-full">
           {filtered.map((product) => (
             <Card key={product.id} product={product} clickable={true} />
           ))}

@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   if (text2) {
     return (
-      <header className="fixed top-0 w-full z-50 bg-blue-500 text-white">
+      <header className="fixed top-0 w-full z-50 bg-blue-500 text-white h-15 flex items-center">
         <button
           type="button"
           onClick={() => {
@@ -25,12 +25,12 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <span className="text-2xl font-medium">Back</span>
         </button>
-        <div className="grid gap-6 max-w-[1100px] mx-auto grid-cols-2">
+        <div className="grid gap-6 max-w-[1100px] mx-auto grid-cols-2 px-20">
           <div className="text-center py-4">
-            <h1 className="text-3xl font-bold">{text}</h1>
+            <h1 className="hidden sm:block text-3xl font-bold">{text}</h1>
           </div>
           <div className="text-center py-4">
-            <h1 className="text-3xl font-bold">{text2}</h1>
+            <h1 className="hidden sm:block text-3xl font-bold">{text2}</h1>
           </div>
         </div>
       </header>
@@ -38,7 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
   }
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-blue-500 text-white shadow">
+    <header className="fixed top-0 w-full z-50 bg-blue-500 text-white shadow h-15 flex items-center">
       <button
         ref={filterButtonRef}
         type="button"
@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
       >
         <span className="text-2xl font-medium">Filter</span>
       </button>
-      <div className="text-center py-4">
+      <div className="text-center w-full">
         <h1 className="text-3xl font-bold">{text}</h1>
       </div>
     </header>

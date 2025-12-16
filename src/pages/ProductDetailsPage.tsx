@@ -81,7 +81,7 @@ export const ProductDetailsPage: React.FC = () => {
   return (
     <>
       <Header text="Product" text2="Reviews" />
-      <div className="grid gap-6 items-start max-w-[1100px] mx-auto grid-cols-2">
+      <div className="grid gap-6 items-start max-w-[1100px] mx-auto grid-cols-1 sm:grid-cols-2 px-6">
         <div className="pt-25">
           <Card product={product} clickable={false} />
           <div className="mt-6">
