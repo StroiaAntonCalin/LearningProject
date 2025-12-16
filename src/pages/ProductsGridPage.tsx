@@ -7,7 +7,7 @@ import { Header } from "../components/Header";
 export const ProductsGridPage: React.FC = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [filterBy, setFilterBy] = useState<"name" | "description">("name");
-  const [filterQuery, setFilterQuery] = useState(""); // draft input
+  const [filterQuery, setFilterQuery] = useState("");
   const [appliedFilterQuery, setAppliedFilterQuery] = useState("");
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const filterButtonRef = useRef<HTMLButtonElement | null>(null);
