@@ -8,7 +8,7 @@ interface CardProps {
   clickable?: boolean;
 }
 
-export const Card: React.FC<CardProps> = ({ product, clickable = true }) => {
+export const Card: React.FC<CardProps> = ({ product, clickable }) => {
   const averageRating =
     product.reviews && product.reviews.length > 0
       ? product.reviews.reduce((sum, r) => sum + r.rating, 0) /
@@ -23,7 +23,7 @@ export const Card: React.FC<CardProps> = ({ product, clickable = true }) => {
         ))}
       </div>
       <img src={product.image} alt={product.name} />
-      <div className="p-4 flex flex-col gap-2">
+      <div className="p-4 gap-2">
         <h2 className="text-lg font-semibold">{product.name}</h2>
         <p className="text-sm text-gray-700">{product.description}</p>
       </div>

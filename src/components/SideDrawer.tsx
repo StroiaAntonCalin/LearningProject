@@ -10,6 +10,8 @@ type SideDrawerProps = {
   onRatingChange: (rating: number) => void;
 };
 
+const MAX_LENGTH = 500;
+
 export const SideDrawer: React.FC<SideDrawerProps> = ({
   open,
   onClose,
@@ -43,7 +45,7 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
     <div className="fixed inset-0 z-50">
       <div className="absolute inset-0 bg-black/40 transition-opacity" />
 
-      <aside
+      <section
         ref={drawerRef}
         className="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-xl p-6 overflow-auto z-60"
       >
@@ -65,7 +67,7 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
                   }}
                   onKeyDown={(e) => {
                     const isPrintableKey = e.key.length === 1;
-                    if (text.length == 500 && isPrintableKey) {
+                    if (text.length == MAX_LENGTH && isPrintableKey) {
                       e.preventDefault();
                       setValidationError(
                         "You reached the maximum of 500 characters.",
@@ -76,12 +78,12 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
                     setValidationError("");
                   }}
                   rows={10}
-                  maxLength={500}
+                  maxLength={MAX_LENGTH}
                   className="w-full resize-none rounded-lg border border-gray-300 p-2"
                 />
               </label>
               <span className="absolute -bottom-5 right-0 text-sm text-gray-500">
-                {text.length} / 500
+                {text.length} / {MAX_LENGTH}
               </span>
               {validationError && (
                 <p className="text-sm text-red-600 mt-1">{validationError}</p>
@@ -128,7 +130,7 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
             </button>
           </div>
         </div>
-      </aside>
+      </section>
     </div>
   );
 };

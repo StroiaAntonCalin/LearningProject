@@ -15,12 +15,12 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => {
             key={review.id}
             className="bg-white p-4 rounded-md shadow border border-gray-200"
           >
-            <div className="flex items-center gap-1">
+            <div className="flex gap-1">
               {[...Array(review.rating)].map((_, i) => (
                 <FaStar key={i} className="text-yellow-500" />
               ))}
             </div>
-            <p className="mt-1">{review.text}</p>
+            <p>{review.text}</p>
             <small className="text-gray-500">
               {new Date(review.createdAt).toLocaleString()}
             </small>
