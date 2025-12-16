@@ -62,8 +62,7 @@ export const ProductsGridPage: React.FC = () => {
       {showFilters && (
         <div
           ref={dropdownRef}
-          className="fixed left-20 z-50 bg-white rounded shadow p-3 min-w-auto"
-          style={{ top: "var(--site-header-height)" }}
+          className="fixed left-20 top-16 z-50 bg-white rounded shadow p-3 min-w-auto"
         >
           <div className="flex items-center gap-3">
             <label className="font-medium whitespace-nowrap">Filter by:</label>

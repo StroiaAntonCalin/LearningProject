@@ -64,7 +64,8 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
                     }
                   }}
                   onKeyDown={(e) => {
-                    if (text.length > 500) {
+                    const isPrintableKey = e.key.length === 1;
+                    if (text.length == 500 && isPrintableKey) {
                       e.preventDefault();
                       setValidationError(
                         "You reached the maximum of 500 characters.",

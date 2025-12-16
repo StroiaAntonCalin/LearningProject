@@ -15,10 +15,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   if (text2) {
     return (
-      <header
-        style={{ marginBottom: "var(--site-header-margin-bottom)" }}
-        className="fixed top-0 w-full z-50 bg-blue-500 text-white shadow"
-      >
+      <header className="fixed top-0 w-full z-50 bg-blue-500 text-white">
         <button
           type="button"
           onClick={() => {
@@ -41,10 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
   }
 
   return (
-    <header
-      style={{ marginBottom: "var(--site-header-margin-bottom)" }}
-      className="fixed top-0 w-full z-50 bg-blue-500 text-white shadow"
-    >
+    <header className="fixed top-0 w-full z-50 bg-blue-500 text-white shadow">
       <button
         ref={filterButtonRef}
         type="button"
