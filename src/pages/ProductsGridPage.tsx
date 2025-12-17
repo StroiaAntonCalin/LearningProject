@@ -32,7 +32,7 @@ export const ProductsGridPage: React.FC = () => {
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
   }, [showFilters]);
 
   if (isLoading) {
@@ -62,7 +62,7 @@ export const ProductsGridPage: React.FC = () => {
       {showFilters && (
         <div
           ref={dropdownRef}
-          className="fixed left-20 top-16 z-50 bg-white rounded shadow p-3 min-w-auto"
+          className="fixed left-20 top-16 z-50 bg-white rounded shadow p-3"
         >
           <div className="flex items-center gap-3">
             <label className="font-medium whitespace-nowrap">Filter by:</label>

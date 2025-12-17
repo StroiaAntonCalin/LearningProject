@@ -34,9 +34,6 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
   }, [open, onClose]);
 
   if (!open) return null;
